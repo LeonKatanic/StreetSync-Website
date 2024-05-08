@@ -1,0 +1,148 @@
+/* Global Styles */
+ul {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(10, 10, 10, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+li {
+    display: inline-block;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* StreetSync Logo */
+li img {
+    height: 28px;
+    text-align: center;
+    padding: 7px 16px;
+}
+
+.profile {
+    background-color: #04AA6D;
+    transition: background-color 0.3s ease;
+}
+
+.profile:hover {
+    background-color: #218C74;
+}
+
+/* Drop Down Filter */
+.dropbtn {
+    background-color: #008d07;
+    border-radius: 50%;
+    color: white;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    border: none;
+    margin-top: 10px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+@media screen and (max-width: 600px) {
+    .dropdown-content {
+        top: 100%;
+        left: 0;
+        width: 100%; 
+        min-width: unset; 
+        box-shadow: none;
+    }
+}
+
+/* Search Box */
+.searchBox {
+    bottom: 3px;
+    left: 10px;
+    position: relative;
+    transform: translate(0%, 50%);
+    background: #2f3640;
+    border-radius: 40px;
+    padding: 5px;
+}
+
+.searchBox:hover > .searchInput {
+    width: 240px;
+    padding: 0 6px;
+}
+
+.searchButton {
+    color: white;
+    float: right;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #2f3640;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+
+.searchInput {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 20px;
+    width: 0px;
+}
+
+@media screen and (max-width: 620px) {
+    .searchBox:hover > .searchInput {
+        width: 150px;
+        padding: 0 6px;
+    }
+}
