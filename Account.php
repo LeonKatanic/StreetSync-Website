@@ -4,15 +4,14 @@ include("connect.php");
 
 $profilePicSrc = 'assets/profile/defaultPic.png';
 
-if(isset($_SESSION['email'])) {
-    $email = $_SESSION['email'];
-    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE email='$email'");
-    if($query && mysqli_num_rows($query) > 0) {
+if (isset($_SESSION['user_email'])) {
+    $user_email = $_SESSION['user_email'];
+    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+    if ($query && mysqli_num_rows($query) > 0) {
         $row = mysqli_fetch_assoc($query);
-        $profilePicSrc = empty($row['image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$row['image'];
+        $profilePicSrc = empty($row['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$row['user_profile_image'];
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,12 +39,12 @@ if(isset($_SESSION['email'])) {
                     <div class="sub-menu">
                         <div class="user-info">
                             <?php 
-                            if(isset($_SESSION['email'])) {
-                                $email = $_SESSION['email'];
-                                $query = mysqli_query($conn, "SELECT * FROM `users` WHERE email='$email'");
-                                if($query && mysqli_num_rows($query) > 0) {
+                            if (isset($_SESSION['user_email'])) {
+                                $user_email = $_SESSION['user_email'];
+                                $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+                                if ($query && mysqli_num_rows($query) > 0) {
                                     $row = mysqli_fetch_assoc($query);
-                                    echo '<img src="' . ($row['image'] ? 'assets/profile/' . $row['image'] : 'assets/profile/defaultPic.png') . '" alt="Profile Picture">';
+                                    echo '<img src="' . ($row['user_profile_image'] ? 'assets/profile/' . $row['user_profile_image'] : 'assets/profile/defaultPic.png') . '" alt="Profile Picture">';
                                 } else {
                                     echo '<img src="assets/profile/defaultPic.png" alt="Profile Picture">';
                                 }
@@ -55,11 +54,12 @@ if(isset($_SESSION['email'])) {
                             ?>
 
                             <?php 
-                            if(isset($_SESSION['email'])){
-                                $email = $_SESSION['email'];
-                                $query = mysqli_query($conn, "SELECT users.* FROM `users` WHERE users.email='$email'");
-                                while($row = mysqli_fetch_array($query)){
-                                    echo $row['fullname'];
+                            if (isset($_SESSION['user_email'])) {
+                                $user_email = $_SESSION['user_email'];
+                                $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+                                if ($query && mysqli_num_rows($query) > 0) {
+                                    $row = mysqli_fetch_assoc($query);
+                                    echo $row['user_name'] . ' ' . $row['user_surname'];
                                 }
                             }
                             ?>
@@ -96,12 +96,12 @@ if(isset($_SESSION['email'])) {
             <div class="left__col">
                 <div class="img__container">
                     <?php 
-                    if(isset($_SESSION['email'])) {
-                        $email = $_SESSION['email'];
-                        $query = mysqli_query($conn, "SELECT * FROM `users` WHERE email='$email'");
-                        if($query && mysqli_num_rows($query) > 0) {
+                    if (isset($_SESSION['user_email'])) {
+                        $user_email = $_SESSION['user_email'];
+                        $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+                        if ($query && mysqli_num_rows($query) > 0) {
                             $row = mysqli_fetch_assoc($query);
-                            echo '<img src="' . ($row['image'] ? 'assets/profile/' . $row['image'] : 'assets/profile/defaultPic.png') . '" alt="Profile Picture">';
+                            echo '<img src="' . ($row['user_profile_image'] ? 'assets/profile/' . $row['user_profile_image'] : 'assets/profile/defaultPic.png') . '" alt="Profile Picture">';
                         } else {
                             echo '<img src="assets/profile/defaultPic.png" alt="Profile Picture">';
                         }
@@ -112,31 +112,32 @@ if(isset($_SESSION['email'])) {
                 </div>
                 <h2>
                     <?php 
-                    if(isset($_SESSION['email'])){
-                        $email = $_SESSION['email'];
-                        $query = mysqli_query($conn, "SELECT users.* FROM `users` WHERE users.email='$email'");
-                        while($row = mysqli_fetch_array($query)){
-                            echo $row['fullname'];
+                    if (isset($_SESSION['user_email'])) {
+                        $user_email = $_SESSION['user_email'];
+                        $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+                        if ($query && mysqli_num_rows($query) > 0) {
+                            $row = mysqli_fetch_assoc($query);
+                            echo $row['user_name'] . ' ' . $row['user_surname'];
                         }
                     }
                     ?>
                 </h2>
                 <p>
                     <?php 
-                    if(isset($_SESSION['email'])){
-                        $email = $_SESSION['email'];
-                        $query = mysqli_query($conn, "SELECT users.* FROM `users` WHERE users.email='$email'");
-                        while($row = mysqli_fetch_array($query)){
-                            echo $row['email'];
+                    if (isset($_SESSION['user_email'])) {
+                        $user_email = $_SESSION['user_email'];
+                        $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+                        if ($query && mysqli_num_rows($query) > 0) {
+                            $row = mysqli_fetch_assoc($query);
+                            echo $row['user_email'];
                         }
                     }
                     ?>
                 </p>
-                <!---->
                 <button id="openModal">Edit Profile</button>
                 <div class="modal" id="modal">
                     <div class="modal-inner">
-                        <h2> Edit Profile</h2>
+                        <h2>Edit Profile</h2>
                         <p>
                             Lorem ipsum
                         </p>

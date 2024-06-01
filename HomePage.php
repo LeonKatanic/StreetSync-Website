@@ -4,15 +4,14 @@ include("connect.php");
 
 $profilePicSrc = 'assets/profile/defaultPic.png';
 
-if(isset($_SESSION['email'])) {
-    $email = $_SESSION['email'];
-    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE email='$email'");
-    if($query && mysqli_num_rows($query) > 0) {
+if (isset($_SESSION['user_email'])) {
+    $user_email = $_SESSION['user_email'];
+    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+    if ($query && mysqli_num_rows($query) > 0) {
         $row = mysqli_fetch_assoc($query);
-        $profilePicSrc = empty($row['image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$row['image'];
+        $profilePicSrc = empty($row['image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/' . $row['image'];
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,11 +40,12 @@ if(isset($_SESSION['email'])) {
                             <div class="user-info">
                                 <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
                                 <?php 
-                                if(isset($_SESSION['email'])){
-                                    $email = $_SESSION['email'];
-                                    $query = mysqli_query($conn, "SELECT users.* FROM `users` WHERE users.email='$email'");
-                                    while($row = mysqli_fetch_array($query)){
-                                        echo $row['fullname'];
+                                if (isset($_SESSION['user_email'])) {
+                                    $user_email = $_SESSION['user_email'];
+                                    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+                                    if ($query) {
+                                        $row = mysqli_fetch_assoc($query);
+                                        echo $row['user_name'] . ' ' . $row['user_surname'];
                                     }
                                 }
                                 ?>

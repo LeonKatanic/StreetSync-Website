@@ -11,19 +11,19 @@
     <form method="post" action="register.php">
       <div class="title">Register</div>
       <div class="input-group">
-        <input type="text" placeholder="Enter Your Full Name" name="fullName" id="fullName" required />
+        <input type="text" placeholder="Enter Your Name" name="userName" id="userName" required />
         <div class="underline"></div>
       </div>
       <div class="input-group">
-        <input type="text" placeholder="Enter Your Username" name="userName" id="userName" required />
+        <input type="text" placeholder="Enter Your Surname" name="userSurname" id="userSurname" required />
         <div class="underline"></div>
       </div>
       <div class="input-group">
-        <input type="email" placeholder="Enter Your Email" name="email" id="email" required />
+        <input type="email" placeholder="Enter Your Email" name="registerEmail" id="registerEmail" required />
         <div class="underline"></div>
       </div>
       <div class="input-group">
-        <input type="password" placeholder="Enter Your Password" id="regPassword" name="password" required />
+        <input type="password" placeholder="Enter Your Password" id="regPassword" name="registerPassword" required />
         <div class="checkbox-container">
           <input type="checkbox" id="showRegPassword" onclick="togglePasswordVisibility('regPassword', 'showRegPassword')" />
         </div>
@@ -43,11 +43,11 @@
     <form method="post" action="register.php">
       <div class="title">Login</div>
       <div class="input-group">
-        <input type="email" placeholder="Enter Your Email" name="email" id="email" required />
+        <input type="email" placeholder="Enter Your Email" name="loginEmail" id="loginEmail" required />
         <div class="underline"></div>
       </div>
       <div class="input-group">
-        <input type="password" placeholder="Enter Your Password" id="loginPassword" name="password" required />
+        <input type="password" placeholder="Enter Your Password" id="loginPassword" name="loginPassword" required />
         <div class="checkbox-container">
           <input type="checkbox" id="showLoginPassword" onclick="togglePasswordVisibility('loginPassword', 'showLoginPassword')" />
         </div>
