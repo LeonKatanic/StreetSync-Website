@@ -1,4 +1,4 @@
-Download xampp, copy paste file StreetSync-Website into xampp/htdocs.
+Download xampp, copy paste file StreetSync-Website-main into xampp/htdocs.
 Run xampp apache and mysql, type localhost/phpmyadmin into browser and create a database named streetsync with table users.
 In users table create columns:
 Id (autincrement)
