@@ -20,12 +20,14 @@ if (isset($_SESSION['user_email'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/profile_page.css">
+    <script defer src="scripts/editProfile.js"></script>
     <link rel="icon" type="image/x-icon" href="assets/images/StreetSyncLogo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <title>StreetSync</title>
 </head>
 <body>
     <!-- NAVBAR -->
+    <div class=navbar>
     <ul>
         <li style="float:left">
             <a href="HomePage.php">
@@ -80,6 +82,7 @@ if (isset($_SESSION['user_email'])) {
             </nav>
         </div>
     </ul>
+    </div>
     <script>
         const subMenu = document.getElementById("subMenu");
 
@@ -87,6 +90,21 @@ if (isset($_SESSION['user_email'])) {
             subMenu.classList.toggle("open-menu");
         }
     </script>
+
+    <!--Sidebar-->
+
+    <div class="wrapper">
+        <div class="sidebar">
+            <ul>
+                <li><a href="#"><i class="bi bi-house"></i> Home</a></li>
+                <li><a href="#"><i class="bi bi-megaphone"></i> Announcments</a></li>
+                <li><a href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
+                <li><a href="#"><i class="bi bi-shop-window"></i> Markteplace</a></li>
+                <li><a href="#"><i class="bi bi-pencil"></i> Reviews</a></li>
+                <li><a href="#"><i class="bi bi-hammer"></i> Jobs</a></li>
+            </ul>
+        </div>
+    </div>
 
     <!-- Profile page -->
 
@@ -139,7 +157,21 @@ if (isset($_SESSION['user_email'])) {
                     <div class="modal-inner">
                         <h2>Edit Profile</h2>
                         <p>
-                            Lorem ipsum
+                        <div class="changeName">
+    <form method="POST" action="change_name.php">
+        <input type="text" name="first_name" id="chngFirstName" placeholder="First name" required>
+        <input type="text" name="last_name" id="chngLastName" placeholder="Last name" required>
+        <button type="submit" id="changeName">Change name</button>
+    </form>
+</div>
+
+<div class="changeImage">
+    <form method="POST" action="change_image.php" enctype="multipart/form-data">
+        <input type="file" name="profile_image" id="profileImage" accept="image/*" required>
+        <button type="submit" id="changeImage">Change image</button>
+    </form>
+</div>
+
                         </p>
                         <button id="closeModal">Submit</button>
                     </div>

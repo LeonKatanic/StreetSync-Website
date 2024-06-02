@@ -57,8 +57,8 @@ body {
     margin: 0;
   }
 
-/* Global Styles */
-ul {
+  /* Navbar */
+.navbar ul {
     list-style-type: none;
     text-align: center;
     margin: 0;
@@ -71,11 +71,11 @@ ul {
     z-index: 1000;
 }
 
-li {
+.navbar li {
     display: inline-block;
 }
 
-li img {
+.navbar li img {
     height: 28px;
     padding: 7px 16px;
 }
@@ -161,17 +161,86 @@ li img {
     font-weight: 600;
 }
 
+/*SideBar*/
+
+.wrapper{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
+
+.wrapper .sidebar{
+    width: 200px;
+    height: 100%;
+    background-image: linear-gradient(to bottom, #a0ffa5, #30b41f, #1eff00);
+    padding: 10% 0px;
+}
+
+.wrapper .sidebar ul {
+    padding: 10;
+    margin: 0;
+}
+
+.wrapper .sidebar h2{
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.wrapper .sidebar ul li{
+    padding: 15px;
+    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: 25px;
+    margin-bottom: 25px;
+}    
+
+.wrapper .sidebar ul li a{
+    color: #000000;
+    display: block;
+}
+
+.wrapper .sidebar ul li a .fas{
+    width: 25px;
+}
+
+.wrapper .sidebar ul li:hover{
+    background-color: #00aa09;
+}
+
+.wrapper .sidebar ul li:hover a{
+    color: #fff;
+}
+
 /*Edit profile*/
 
 button {
-    background-image: linear-gradient(to right, #663399, #8853bd);
-    border-radius: 20px;
-    border: 0;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-    color: #fff;
-    cursor: pointer;
-    padding: 10px 25px;
+  background-image: linear-gradient(to right, #339938, #5fbd53);
+  border-radius: 20px;
+  border: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
+
+.modal .changeName #chngFirstName, #chngLastName {
+  border-radius: 20px;
+  border: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  color: #000;
+  padding: 10px 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 100px;
+}
+
 
 button:active {
     opacity: 0.8;
@@ -204,15 +273,6 @@ button:active {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     text-align: center;
     width: 380px;
-}
-
-.modal .modal-inner h2 {
-    margin: 0;
-}
-
-.modal .modal-inner p {
-    line-height: 24px;
-    margin: 10px 0;
 }
 
 

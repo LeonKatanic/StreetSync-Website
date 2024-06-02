@@ -1,4 +1,12 @@
 /* Global Styles */
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+}
 .navbar ul {
     list-style-type: none;
     text-align: center;
@@ -37,7 +45,7 @@
     margin-left: 30px;
 }
 
-/* Sub Menu */
+/* Profile Menu */
 .sub-menu-wrap {
     position: absolute;
     top: 100%;
@@ -116,7 +124,7 @@
 .wrapper .sidebar{
     width: 200px;
     height: 100%;
-    background: #006b00;
+    background-image: linear-gradient(to bottom, #a0ffa5, #30b41f, #1eff00);
     padding: 20% 0px;
 }
 
