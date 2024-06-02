@@ -1,28 +1,45 @@
 <?php
-session_start();
+
 include 'connect.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
+if (isset($_POST['signUp'])) {
+    $username = $_POST['userName'] ?? '';
+    $surname = $_POST['userSurname'] ?? '';
+    $email = $_POST['registerEmail'] ?? '';
+    $password = $_POST['registerPassword'] ?? '';
+    $password = md5($password);
 
-    $first_name = $conn->real_escape_string($first_name);
-    $last_name = $conn->real_escape_string($last_name);
-
-    $user_email = $_SESSION['user_email'];
-
-    $stmt = $conn->prepare("UPDATE users SET user_name = ?, user_surname = ? WHERE user_email = ?");
-    $stmt->bind_param("sss", $first_name, $last_name, $user_email);
-
-    if ($stmt->execute()) {
-        header("Location: Account.php");
-        exit();
+    $checkEmail = "SELECT * FROM users WHERE user_email='$email'";
+    $result = $conn->query($checkEmail);
+    if ($result->num_rows > 0) {
+        echo "Email address already exists!";
     } else {
-        echo "Error updating record: " . $stmt->error;
+        $insertQuery = "INSERT INTO users(user_name, user_surname, user_email, password) VALUES ('$username', '$surname', '$email', '$password')";
+        if ($conn->query($insertQuery) === TRUE) {
+            header("Location: LoginRegister.php");
+            exit();
+        } else {
+            echo "Error: " . $conn->error;
+        }
     }
-
-    $stmt->close();
 }
 
-$conn->close();
+if (isset($_POST['signIn'])) {
+    $email = $_POST['loginEmail'] ?? '';
+    $password = $_POST['loginPassword'] ?? '';
+    $password = md5($password);
+
+    $sql = "SELECT * FROM users WHERE user_email='$email' AND password='$password'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        session_start();
+        $row = $result->fetch_assoc();
+        $_SESSION['email'] = $row['user_email'];
+        header("Location: HomePage.php");
+        exit();
+    } else {
+        echo "Not Found, Incorrect Email or Password";
+    }
+}
+
 ?>

@@ -1,15 +1,15 @@
-<?php 
 session_start();
 include("connect.php");
 
 $profilePicSrc = 'assets/profile/defaultPic.png';
+$userInfo = [];
 
 if (isset($_SESSION['user_email'])) {
     $user_email = $_SESSION['user_email'];
     $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
     if ($query && mysqli_num_rows($query) > 0) {
-        $row = mysqli_fetch_assoc($query);
-        $profilePicSrc = empty($row['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$row['user_profile_image'];
+        $userInfo = mysqli_fetch_assoc($query);
+        $profilePicSrc = empty($userInfo['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$userInfo['user_profile_image'];
     }
 }
 ?>
