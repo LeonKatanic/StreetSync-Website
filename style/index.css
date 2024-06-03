@@ -32,12 +32,12 @@ li img {
 }
 
 .profile {
-    background-color: #04AA6D;
+    background-color: #04aa0c;
     transition: background-color 0.3s ease;
 }
 
 .profile:hover {
-    background-color: #218C74;
+    background-color: #0dd106;
 }
 
 

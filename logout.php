@@ -1,3 +1,3 @@
 <?phpsession_destroy();
-header("location: LoginRegister.php");
+header("location: index.php");
 ?>

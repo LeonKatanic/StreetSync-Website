@@ -3,13 +3,17 @@ session_start();
 include("connect.php");
 
 $profilePicSrc = 'assets/profile/defaultPic.png';
+$user_name = '';
+$user_surname = '';
 
 if (isset($_SESSION['user_email'])) {
-    $user_email = $_SESSION['user_email'];
+    $user_email = mysqli_real_escape_string($conn, $_SESSION['user_email']);
     $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
     if ($query && mysqli_num_rows($query) > 0) {
         $row = mysqli_fetch_assoc($query);
         $profilePicSrc = empty($row['image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/' . $row['image'];
+        $user_name = $row['user_name'];
+        $user_surname = $row['user_surname'];
     }
 }
 ?>
@@ -34,19 +38,14 @@ if (isset($_SESSION['user_email'])) {
             </li>
             <div class="hero">
                 <nav>
-                    <img src="<?php echo $profilePicSrc; ?>" class="user-pic" onclick="toggleMenu()">
+                    <img src="<?php echo htmlspecialchars($profilePicSrc); ?>" class="user-pic" onclick="toggleMenu()">
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <div class="user-info">
-                                <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
+                                <img src="<?php echo htmlspecialchars($profilePicSrc); ?>" alt="Profile Picture">
                                 <?php 
                                 if (isset($_SESSION['user_email'])) {
-                                    $user_email = $_SESSION['user_email'];
-                                    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
-                                    if ($query) {
-                                        $row = mysqli_fetch_assoc($query);
-                                        echo $row['user_name'] . ' ' . $row['user_surname'];
-                                    }
+                                    echo htmlspecialchars($user_name . ' ' . $user_surname);
                                 }
                                 ?>
                             </div>
