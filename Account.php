@@ -5,9 +5,9 @@ include("connect.php");
 $profilePicSrc = 'assets/profile/defaultPic.png';
 $userInfo = [];
 
-if (isset($_SESSION['user_email'])) {
-    $user_email = $_SESSION['user_email'];
-    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE email='$email'");
     if ($query && mysqli_num_rows($query) > 0) {
         $userInfo = mysqli_fetch_assoc($query);
         $profilePicSrc = empty($userInfo['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$userInfo['user_profile_image'];
@@ -43,7 +43,7 @@ if (isset($_SESSION['user_email'])) {
                         <div class="user-info">
                             <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
                             <?php if (!empty($userInfo)) : ?>
-                                <p><?php echo $userInfo['user_name'] . ' ' . $userInfo['user_surname']; ?></p>
+                                <p><?php echo $userInfo['firstName'] . ' ' . $userInfo['lastName']; ?></p>
                             <?php endif; ?>
                         </div>
                         <hr>
@@ -96,10 +96,10 @@ if (isset($_SESSION['user_email'])) {
                     <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
                 </div>
                 <h2>
-                    <?php echo !empty($userInfo) ? $userInfo['user_name'] . ' ' . $userInfo['user_surname'] : ''; ?>
+                    <?php echo !empty($userInfo) ? $userInfo['firstName'] . ' ' . $userInfo['lastName'] : ''; ?>
                 </h2>
                 <p>
-                    <?php echo !empty($userInfo) ? $userInfo['user_email'] : ''; ?>
+                    <?php echo !empty($userInfo) ? $userInfo['email'] : ''; ?>
                 </p>
                 <button id="openModal">Edit Profile</button>
                 <div class="modal" id="modal">

@@ -3,14 +3,14 @@ session_start();
 include 'connect.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['user_email'])) {
+if (!isset($_SESSION['email'])) {
     echo "You need to be logged in to change your profile picture.";
     exit();
 }
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_email = $_SESSION['user_email'];
+    $email = $_SESSION['email'];
 
     // Check if file was uploaded without errors
     if (isset($_FILES["profile_image"]) && $_FILES["profile_image"]["error"] == 0) {
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $new_target_file = $target_dir . $new_filename;
 
         // Delete the previous profile image if it exists
-        $select_query = "SELECT user_profile_image FROM users WHERE user_email = '$user_email'";
+        $select_query = "SELECT user_profile_image FROM users WHERE email = '$email'";
         $result = $conn->query($select_query);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Move the uploaded file to the desired location
         if (move_uploaded_file($_FILES["profile_image"]["tmp_name"], $new_target_file)) {
             // Update the user's profile image in the database
-            $update_query = "UPDATE users SET user_profile_image = '$new_filename' WHERE user_email = '$user_email'";
+            $update_query = "UPDATE users SET user_profile_image = '$new_filename' WHERE email = '$email'";
             if ($conn->query($update_query) === TRUE) {
                 // Redirect to Account.php after successful update
                 header("Location: Account.php");

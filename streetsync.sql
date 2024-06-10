@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2024 at 05:10 PM
+-- Generation Time: Jun 10, 2024 at 12:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -43,10 +43,10 @@ CREATE TABLE `comment` (
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `user_email` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `user_name` varchar(50) NOT NULL,
-  `user_surname` varchar(50) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
   `user_profile_image` varchar(50) NOT NULL,
   `user_profile_background` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -55,8 +55,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_email`, `password`, `user_name`, `user_surname`, `user_profile_image`, `user_profile_background`) VALUES
-(24, 'kleon@mail.com', '$2y$10$Hld.VUI43jLhbyPQf7gNYekzTfSzU.N8GeiJWrUqwqvQ/oQJdxSO6', 'Leon', 'Katanic', '', '');
+INSERT INTO `users` (`user_id`, `email`, `password`, `firstName`, `lastName`, `user_profile_image`, `user_profile_background`) VALUES
+(28, 'kleon@mail.com', '$2y$10$1Z.ndvQXCuUG7vwYZKMYU.bLIle1pnbEZ071fPzMJXsI/vGJ31i.6', 'Leon', 'Katanić', '', ''),
+(29, 'ihorvat@mail.com', '$2y$10$pch6J/22cBUpwXkhMcOsmONiUEPVBNzQwFTkCi9GPZdIM.joGFOdS', 'Ivan', 'Horvat', '', '');
 
 --
 -- Indexes for dumped tables
@@ -82,13 +83,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,19 +1,16 @@
-<?php 
+<?php
 session_start();
 include("connect.php");
 
 $profilePicSrc = 'assets/profile/defaultPic.png';
-$user_name = '';
-$user_surname = '';
+$userInfo = [];
 
-if (isset($_SESSION['user_email'])) {
-    $user_email = mysqli_real_escape_string($conn, $_SESSION['user_email']);
-    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $query = mysqli_query($conn, "SELECT * FROM `users` WHERE email='$email'");
     if ($query && mysqli_num_rows($query) > 0) {
-        $row = mysqli_fetch_assoc($query);
-        $profilePicSrc = empty($row['image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/' . $row['image'];
-        $user_name = $row['user_name'];
-        $user_surname = $row['user_surname'];
+        $userInfo = mysqli_fetch_assoc($query);
+        $profilePicSrc = empty($userInfo['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$userInfo['user_profile_image'];
     }
 }
 ?>
@@ -30,43 +27,48 @@ if (isset($_SESSION['user_email'])) {
     <title>StreetSync</title>
 </head>
 <body>
-    <div class="navbar">
-        <ul>
-            <li style="float:left">
-                <a href="HomePage.php">
-                    <img src="assets/images/StreetSyncName.png" alt="StreetSyncName">
-                </a>
-            </li>
-            <div class="hero">
-                <nav>
-                    <img src="<?php echo htmlspecialchars($profilePicSrc); ?>" class="user-pic" onclick="toggleMenu()">
-                    <div class="sub-menu-wrap" id="subMenu">
-                        <div class="sub-menu">
-                            <div class="user-info">
-                                <img src="<?php echo htmlspecialchars($profilePicSrc); ?>" alt="Profile Picture">
-                                <?php 
-                                if (isset($_SESSION['user_email'])) {
-                                    echo htmlspecialchars($user_name . ' ' . $user_surname);
-                                }
-                                ?>
-                            </div>
-                            <hr>
-                            <a href="Account.php" class="sub-menu-link">
-                                <i class="bi bi-person-fill"></i>
-                                <p>Profile</p>
-                                <span>&gt;</span>
-                            </a>
-                            <a href="logout.php" class="sub-menu-link">
-                                <i class="bi bi-box-arrow-left"></i>
-                                <p>Log out</p>
-                                <span>&gt;</span>
-                            </a>
+<div class="navbar">
+    <ul>
+        <li style="float:left">
+            <a href="HomePage.php">
+                <img src="assets/images/StreetSyncName.png" alt="StreetSyncName">
+            </a>
+        </li>
+        <div class="hero">
+            <nav>
+                <img src="<?php echo $profilePicSrc; ?>" class="user-pic" onclick="toggleMenu()">
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
+                            <?php if (!empty($userInfo)) : ?>
+                                <p><?php echo $userInfo['firstName'] . ' ' . $userInfo['lastName']; ?></p>
+                            <?php endif; ?>
                         </div>
+                        <hr>
+                        <a href="Account.php" class="sub-menu-link">
+                            <i class="bi bi-house"></i>
+                            <p>Account</p>
+                            <span>&gt;</span>
+                        </a>
+                        <a href="logout.php" class="sub-menu-link">
+                            <i class="bi bi-box-arrow-left"></i>
+                            <p>Log out</p>
+                            <span>&gt;</span>
+                        </a>
                     </div>
-                </nav>
-            </div>
-        </ul>
+                </div>
+            </nav>
+        </div>
+    </ul>
     </div>
+    <script>
+        const subMenu = document.getElementById("subMenu");
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+    </script>
     <!--SideBar-->
     <div class="wrapper">
         <div class="sidebar">
