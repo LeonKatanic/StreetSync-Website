@@ -10,12 +10,17 @@ if (isset($_SESSION['user_email'])) {
     $query = mysqli_query($conn, "SELECT * FROM `users` WHERE user_email='$user_email'");
     if ($query && mysqli_num_rows($query) > 0) {
         $userInfo = mysqli_fetch_assoc($query);
-        $profilePicSrc = empty($userInfo['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$userInfo['user_profile_image'];
+        $profilePicSrc = empty($userInfo['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/' . $userInfo['user_profile_image'];
     }
+}
+if (!isset($_SESSION['user_id'])) {
+    header("Location: register.php");
+    exit();
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,42 +31,43 @@ if (isset($_SESSION['user_email'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <title>StreetSync</title>
 </head>
+
 <body>
     <!-- NAVBAR -->
     <div class="navbar">
-    <ul>
-        <li style="float:left">
-            <a href="HomePage.php">
-                <img src="assets/images/StreetSyncName.png" alt="StreetSyncName">
-            </a>
-        </li>
-        <div class="hero">
-            <nav>
-                <img src="<?php echo $profilePicSrc; ?>" class="user-pic" onclick="toggleMenu()">
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
-                            <?php if (!empty($userInfo)) : ?>
-                                <p><?php echo $userInfo['user_name'] . ' ' . $userInfo['user_surname']; ?></p>
-                            <?php endif; ?>
+        <ul>
+            <li style="float:left">
+                <a href="HomePage.php">
+                    <img src="assets/images/StreetSyncName.png" alt="StreetSyncName">
+                </a>
+            </li>
+            <div class="hero">
+                <nav>
+                    <img src="<?php echo $profilePicSrc; ?>" class="user-pic" onclick="toggleMenu()">
+                    <div class="sub-menu-wrap" id="subMenu">
+                        <div class="sub-menu">
+                            <div class="user-info">
+                                <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
+                                <?php if (!empty($userInfo)) : ?>
+                                    <p><?php echo $userInfo['user_name'] . ' ' . $userInfo['user_surname']; ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <hr>
+                            <a href="HomePage.php" class="sub-menu-link">
+                                <i class="bi bi-house"></i>
+                                <p>Home page</p>
+                                <span>&gt;</span>
+                            </a>
+                            <a href="logout.php" class="sub-menu-link">
+                                <i class="bi bi-box-arrow-left"></i>
+                                <p>Log out</p>
+                                <span>&gt;</span>
+                            </a>
                         </div>
-                        <hr>
-                        <a href="HomePage.php" class="sub-menu-link">
-                            <i class="bi bi-house"></i>
-                            <p>Home page</p>
-                            <span>&gt;</span>
-                        </a>
-                        <a href="logout.php" class="sub-menu-link">
-                            <i class="bi bi-box-arrow-left"></i>
-                            <p>Log out</p>
-                            <span>&gt;</span>
-                        </a>
                     </div>
-                </div>
-            </nav>
-        </div>
-    </ul>
+                </nav>
+            </div>
+        </ul>
     </div>
     <script>
         const subMenu = document.getElementById("subMenu");
@@ -119,6 +125,12 @@ if (isset($_SESSION['user_email'])) {
                                 <button type="submit" id="changeImage">Change image</button>
                             </form>
                         </div>
+                        <div class="deleteAccount">
+                            <form id="deleteAccountForm" action="delete_account.php" method="post">
+                                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                <button type="button" onclick="confirmDelete()">Delete Account</button>
+                            </form>
+                        </div>
                         </p>
                         <button id="closeModal">Submit</button>
                     </div>
@@ -129,5 +141,13 @@ if (isset($_SESSION['user_email'])) {
         </div>
     </div>
     <script src="editProfile.js"></script>
+    <script>
+        function confirmDelete() {
+            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                document.getElementById('deleteAccountForm').submit();
+            }
+        }
+    </script>
 </body>
+
 </html>
