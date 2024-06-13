@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2024 at 12:52 PM
+-- Generation Time: Jun 13, 2024 at 10:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -24,15 +24,55 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Table structure for table `categories`
 --
 
-CREATE TABLE `comment` (
-  `id` int(11) NOT NULL,
-  `parent_id` int(11) NOT NULL,
-  `comment` varchar(200) NOT NULL,
-  `sender` varchar(40) NOT NULL,
+CREATE TABLE `categories` (
+  `category_id` int(11) NOT NULL,
+  `category_name` text NOT NULL,
+  `category_description` text NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`category_id`, `category_name`, `category_description`, `date`) VALUES
+(1, 'Announcements', 'Inform your neighbours about what\'s going on in the neighbourhood', '2024-07-12 00:00:00'),
+(2, 'Events', 'Find out and share events going on in your neighbourhood', '2024-07-12 00:00:00'),
+(3, 'Reviews', 'Share your experience of restaurants, clubs, local businesses and other', '2024-07-12 00:00:00'),
+(4, 'Volunteering', 'Help your neighbour or ask for help and create a welcoming neighbourhood', '2024-07-12 00:00:00'),
+(5, 'Marketplace', 'Buy items from your neighbour or sell your items to them', '2024-07-12 00:00:00'),
+(6, 'Jobs', 'Look for job offerings or post your own', '2024-07-12 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `comment_id` int(11) NOT NULL,
+  `comment_content` text NOT NULL,
+  `thread_id` int(11) NOT NULL,
+  `comment_by` int(11) NOT NULL,
+  `Date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `threads`
+--
+
+CREATE TABLE `threads` (
+  `thread_id` int(11) NOT NULL,
+  `thread_title` text NOT NULL,
+  `thread_desc` text NOT NULL,
+  `thread_cat_id` int(11) NOT NULL,
+  `thread_user_id` int(11) NOT NULL,
+  `Date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -56,18 +96,31 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `email`, `password`, `firstName`, `lastName`, `user_profile_image`, `user_profile_background`) VALUES
-(28, 'kleon@mail.com', '$2y$10$1Z.ndvQXCuUG7vwYZKMYU.bLIle1pnbEZ071fPzMJXsI/vGJ31i.6', 'Leon', 'Katanić', '', ''),
-(29, 'ihorvat@mail.com', '$2y$10$pch6J/22cBUpwXkhMcOsmONiUEPVBNzQwFTkCi9GPZdIM.joGFOdS', 'Ivan', 'Horvat', '', '');
+(32, 'grievoussux@mail.com', '$2y$10$oRIUeKmHiRKf5eGGlsFHBeLNMJJ/2UK1L.beYIJ1QtOF9ccvlZ0ZO', 'Ben', 'Kenobi', '666aab8b676b0.jpeg', ''),
+(33, '4armclancker@mail.com', '$2y$10$d79y8D13Rrh99M.upZw0guii240hinb8k5StI.oiluVpX09yR11sG', 'Grievous', 'General', '666ab34e0f092.jpeg', '');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `comment`
+-- Indexes for table `categories`
 --
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`);
+
+--
+-- Indexes for table `threads`
+--
+ALTER TABLE `threads`
+  ADD PRIMARY KEY (`thread_id`);
+ALTER TABLE `threads` ADD FULLTEXT KEY `thread_title` (`thread_title`,`thread_desc`);
 
 --
 -- Indexes for table `users`
@@ -80,16 +133,28 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `comment`
+-- AUTO_INCREMENT for table `categories`
 --
-ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+ALTER TABLE `categories`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `threads`
+--
+ALTER TABLE `threads`
+  MODIFY `thread_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
