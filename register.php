@@ -36,6 +36,8 @@ if(isset($_POST['signIn'])){
        if (password_verify($password, $row['password'])) {
            session_start();
            $_SESSION['email'] = $row['email'];
+           $_SESSION['loggedin'] = true;
+           $_SESSION['user_id'] = $row['user_id'];
            header("Location: homepage.php");
            exit();
        } else {

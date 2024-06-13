@@ -161,61 +161,6 @@ body {
     font-weight: 600;
 }
 
-/*SideBar*/
-
-.wrapper{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-}
-
-.wrapper .sidebar{
-    width: 200px;
-    height: 100%;
-    background-image: linear-gradient(to bottom, #a0ffa5, #30b41f, #1eff00);
-    padding: 10% 0px;
-}
-
-.wrapper .sidebar ul {
-    padding: 10;
-    margin: 0;
-}
-
-.wrapper .sidebar h2{
-    color: #fff;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.wrapper .sidebar ul li{
-    padding: 15px;
-    border-bottom: 1px solid #000000;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    margin-top: 25px;
-    margin-bottom: 25px;
-}    
-
-.wrapper .sidebar ul li a{
-    color: #000000;
-    display: block;
-}
-
-.wrapper .sidebar ul li a .fas{
-    width: 25px;
-}
-
-.wrapper .sidebar ul li:hover{
-    background-color: #00aa09;
-}
-
-.wrapper .sidebar ul li:hover a{
-    color: #fff;
-}
-
 /*Edit profile*/
 
 button {

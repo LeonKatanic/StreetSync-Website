@@ -71,21 +71,6 @@ if (isset($_SESSION['email'])) {
         }
     </script>
 
-    <!--Sidebar-->
-
-    <div class="wrapper">
-        <div class="sidebar">
-            <ul>
-                <li><a href="#"><i class="bi bi-house"></i> Home</a></li>
-                <li><a href="#"><i class="bi bi-megaphone"></i> Announcements</a></li>
-                <li><a href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
-                <li><a href="#"><i class="bi bi-shop-window"></i> Marketplace</a></li>
-                <li><a href="#"><i class="bi bi-pencil"></i> Reviews</a></li>
-                <li><a href="#"><i class="bi bi-hammer"></i> Jobs</a></li>
-            </ul>
-        </div>
-    </div>
-
     <!-- Profile page -->
 
     <div class="header__wrapper">

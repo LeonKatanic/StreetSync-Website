@@ -17,7 +17,9 @@ if (isset($_SESSION['email'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,49 +63,36 @@ if (isset($_SESSION['email'])) {
             </nav>
         </div>
     </ul>
-    </div>
-    <script>
-        const subMenu = document.getElementById("subMenu");
+</div>
+    
+    <!-- Threads -->
 
-        function toggleMenu() {
-            subMenu.classList.toggle("open-menu");
-        }
-    </script>
-    <!--SideBar-->
-    <div class="wrapper">
-        <div class="sidebar">
-            <ul>
-                <li><a href="#"><i class="bi bi-house"></i>Home</a></li>
-                <li><a href="#"><i class="bi bi-megaphone"></i>Announcments</a></li>
-                <li><a href="#"><i class="bi bi-calendar-event"></i>Events</a></li>
-                <li><a href="#"><i class="bi bi-shop-window"></i>Marketplace</a></li>
-                <li><a href="#"><i class="bi bi-pencil"></i>Reviews</a></li>
-                <li><a href="#"><i class="bi bi-hammer"></i>Jobs</a></li>
-            </ul>
+    <div class="container my-3">
+        <h2 class="text-center">Browse Categories</h2>
+        <div class="row my-4">
+            <?php
+            $sql = "SELECT * FROM `categories`";
+            $result = mysqli_query($conn,$sql);
+            while ($row = mysqli_fetch_assoc($result)) {
+                $id = $row['category_id'];
+                $catname = $row['category_name'];
+                $catdesc = $row['category_description'];
+
+                echo '<div class="col-md-4 my-3">
+                <div class="card text-left">
+                  <img class="card-img-top" src="assets/images/card-'.$id.'.jpg" alt="">
+                  <div class="card-body">
+                    <h4 class="card-title"><a href="threadlist.php?catid='.$id.'">'.$catname.'</a></h4>
+                    <p class="card-text">'.substr($catdesc, 0 , 110).'</p>
+                    <a href="threadlist.php?catid='.$id.'" class="btn btn-primary btn-lg">View Threads</a>
+                  </div>
+                </div>
+            </div>';
+            }
+            ?>
         </div>
     </div>
 
-    <!--Posts & comments-->
-    <div class="form-container">
-        <br>
-        <form method="POST" id="commentForm">
-            <div class="form-group">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name" required />
-            </div>
-            <div class="form-group">
-                <textarea name="comment" id="comment" class="form-control" placeholder="Enter Comment" rows="5" required></textarea>
-            </div>
-            <span id="message"></span>
-            <br>
-            <div class="form-group">
-                <input type="hidden" name="commentId" id="commentId" value="0" />
-                <input type="submit" name="submit" id="submit" class="btn btn-primary" value="Post Comment" />
-            </div>
-        </form>		
-        <br>
-        <div id="showComments"></div>   
-    </div>
-    <script src="scripts/comments.js"></script>
     <script>
         const subMenu = document.getElementById("subMenu");
 
