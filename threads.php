@@ -2,6 +2,26 @@
 session_start();
 include("connect.php");
 
+// Handle POST request and insert comment into the database
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $comment = $_POST['comment'];
+    $user_id = $_POST['user_id'];
+    $thread_id = $_POST['thread_id'];
+
+    $sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sii", $comment, $thread_id, $user_id);
+    $result = $stmt->execute();
+    if ($result) {
+        // Redirect to the same page to prevent resubmission
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+}
+
+// Get thread information
 $id = $_GET['threadid'];
 $sql = "SELECT * FROM `threads` WHERE thread_id = ?";
 $stmt = $conn->prepare($sql);
@@ -15,14 +35,14 @@ if ($result) {
         $desc = $row['thread_desc'];
         $thuser_id = $row['thread_user_id'];
 
-        $sql2 = "SELECT firstName FROM `users` WHERE user_id = ?";
+        $sql2 = "SELECT firstName, lastName FROM `users` WHERE user_id = ?";
         $stmt2 = $conn->prepare($sql2);
         $stmt2->bind_param("i", $thuser_id);
         $stmt2->execute();
         $result2 = $stmt2->get_result();
         if ($result2) {
             $row2 = mysqli_fetch_assoc($result2);
-            $postedby = $row2['firstName'];
+            $postedby = $row2['firstName'] . ' ' . $row2['lastName'];
         } else {
             // Handle query error
             echo "Error: " . $stmt2->error;
@@ -32,6 +52,8 @@ if ($result) {
     // Handle query error
     echo "Error: " . $stmt->error;
 }
+
+// Get user information if logged in
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $query = mysqli_query($conn, "SELECT * FROM `users` WHERE email='$email'");
@@ -61,56 +83,42 @@ if (isset($_SESSION['email'])) {
 </head>
 
 <body>
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $comment = $_POST['comment'];
-        $user_id = $_POST['user_id'];
-
-        $sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sii", $comment, $id, $user_id);
-        $result = $stmt->execute();
-        if ($result) {
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-    }
-    ?>
     <div class="navbar">
-    <ul>
-        <li style="float:left">
-            <a href="HomePage.php">
-                <img src="assets/images/StreetSyncName.png" alt="StreetSyncName">
-            </a>
-        </li>
-        <div class="hero">
-            <nav>
-                <img src="<?php echo $profilePicSrc; ?>" class="user-pic" onclick="toggleMenu()">
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
-                            <?php if (!empty($userInfo)) : ?>
-                                <p><?php echo $userInfo['firstName'] . ' ' . $userInfo['lastName']; ?></p>
-                            <?php endif; ?>
+        <ul>
+            <li style="float:left">
+                <a href="HomePage.php">
+                    <img src="assets/images/StreetSyncName.png" alt="StreetSyncName">
+                </a>
+            </li>
+            <div class="hero">
+                <nav>
+                    <img src="<?php echo $profilePicSrc; ?>" class="user-pic" onclick="toggleMenu()">
+                    <div class="sub-menu-wrap" id="subMenu">
+                        <div class="sub-menu">
+                            <div class="user-info">
+                                <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
+                                <?php if (!empty($userInfo)) : ?>
+                                    <p><?php echo $userInfo['firstName'] . ' ' . $userInfo['lastName']; ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <hr>
+                            <a href="Account.php" class="sub-menu-link">
+                                <i class="bi bi-house"></i>
+                                <p>Account</p>
+                                <span>&gt;</span>
+                            </a>
+                            <a href="logout.php" class="sub-menu-link">
+                                <i class="bi bi-box-arrow-left"></i>
+                                <p>Log out</p>
+                                <span>&gt;</span>
+                            </a>
                         </div>
-                        <hr>
-                        <a href="Account.php" class="sub-menu-link">
-                            <i class="bi bi-house"></i>
-                            <p>Account</p>
-                            <span>&gt;</span>
-                        </a>
-                        <a href="logout.php" class="sub-menu-link">
-                            <i class="bi bi-box-arrow-left"></i>
-                            <p>Log out</p>
-                            <span>&gt;</span>
-                        </a>
                     </div>
-                </div>
-            </nav>
-        </div>
-    </ul>
-</div>
+                </nav>
+            </div>
+        </ul>
+    </div>
+
     <div class="container my-3">
         <div class="jumbotron">
             <h1 class="display-3"><?php echo htmlspecialchars($title); ?></h1>
@@ -119,6 +127,7 @@ if (isset($_SESSION['email'])) {
             <p>Posted by: <b><?php echo htmlspecialchars($postedby); ?></b></p>
         </div>
     </div>
+
     <div class="container my-3">
         <h2 class="my-3">Post a comment</h2>
         <?php
@@ -127,6 +136,7 @@ if (isset($_SESSION['email'])) {
                 <div class="form-group">
                    <textarea name="comment" rows="3" class="form-control"></textarea>
                    <input type="hidden" name="user_id" value="' . htmlspecialchars($_SESSION["user_id"]) . '">
+                   <input type="hidden" name="thread_id" value="' . htmlspecialchars($id) . '">
                 </div>
                 <button type="submit" class="btn btn-primary">Post</button>
             </form>';
@@ -139,6 +149,7 @@ if (isset($_SESSION['email'])) {
         }
         ?>
     </div>
+
     <div class="container my-4" id="footer">
         <h2 class="text-center">Your Comments</h2>
         <div class="container my-3">
@@ -155,21 +166,27 @@ if (isset($_SESSION['email'])) {
                     $comment = $row['comment_content'];
                     $postedby = $row['comment_by'];
 
-                    $sql2 = "SELECT firstName FROM `users` WHERE user_id = ?";
+                    // Fetch user's information (first name, last name, profile picture)
+                    $sql2 = "SELECT firstName, lastName, user_profile_image FROM `users` WHERE user_id = ?";
                     $stmt2 = $conn->prepare($sql2);
                     $stmt2->bind_param("i", $postedby);
                     $stmt2->execute();
                     $result2 = $stmt2->get_result();
                     if ($result2) {
                         $row2 = mysqli_fetch_assoc($result2);
+                        $firstName = $row2['firstName'];
+                        $lastName = $row2['lastName'];
+                        $profilePic = empty($row2['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$row2['user_profile_image'];
+
+                        // Display the comment with profile picture
                         echo '<div class="media my-3">
-                        <a class="d-flex" href="#">
-                            <img src="img/user.png" height="55px" alt="">
-                        </a>
-                        <div class="media-body my-0 ml-2">
-                            <p class="font-weight-bold my-0">' . htmlspecialchars($row2['firstName']) . '</p>
-                            ' . htmlspecialchars($comment) . '
-                        </div>
+                            <a class="d-flex" href="#">
+                                <img src="'.$profilePic.'" class="user-pic" height="55px" alt="Profile Picture">
+                            </a>
+                            <div class="media-body ml-2">
+                                <p class="font-weight-bold my-0">' . htmlspecialchars($firstName . ' ' . $lastName) . '</p>
+                                ' . htmlspecialchars($comment) . '
+                            </div>
                         </div>';
                     } else {
                         // Handle query error
@@ -190,6 +207,7 @@ if (isset($_SESSION['email'])) {
             ?>
         </div>
     </div>
+
     <script>
         const subMenu = document.getElementById("subMenu");
 

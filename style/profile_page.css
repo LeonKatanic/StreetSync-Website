@@ -90,11 +90,23 @@ body {
 
 /* User Pic */
 .user-pic {
-    width: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-left: 30px;
+  width: 40px; /* Adjust as needed */
+  height: 40px; /* Adjust as needed */
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 30px;
 }
+
+.user-info img {
+  width: 60px; /* Ensure consistent size */
+  height: 60px; /* Ensure consistent size */
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover; /* Ensure the image covers its container */
+  box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.18);
+}
+
+
 
 /* Profile Menu */
 .sub-menu-wrap {

@@ -41,12 +41,21 @@ body, html {
 
 /* User Pic */
 .user-pic {
-    width: 40px;
-    height: 40px;
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
     border-radius: 50%;
     cursor: pointer;
     margin-left: 30px;
-}
+  }
+  
+  .user-info img {
+    width: 60px; /* Ensure consistent size */
+    height: 60px; /* Ensure consistent size */
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover; /* Ensure the image covers its container */
+    box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.18);
+  }
 
 /* Profile Menu */
 .sub-menu-wrap {
@@ -80,7 +89,6 @@ body, html {
 
 .user-info img {
     width: 60px;
-    height: 60px;
     border-radius: 50%;
     margin-right: 15px;
 }
@@ -114,3 +122,36 @@ body, html {
     font-weight: 600;
 }
 
+/* Button Styles */
+.btn-primary {
+    background-image: linear-gradient(to right, #339938, #5fbd53);
+    border-color: green;
+}
+
+.btn-primary:hover {
+    background-image: linear-gradient(to right, #09790f, #8ac483);
+    border-color: darkgreen;
+}
+
+/* Category Title Styles */
+.card-title a {
+    color: green;
+    text-decoration: none; /* Remove underline from the link */
+}
+
+.card-title a:hover {
+    color: darkgreen;
+}
+
+/* Container Margin Adjustment */
+.container.my-3 {
+    margin-top: 40px !important;
+}
+
+/* Media Section Profile Pic */
+.media .media-body .user-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

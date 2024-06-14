@@ -4,7 +4,7 @@ include("connect.php");
 
 $id = $_GET['catid'];
 $sql = "SELECT * FROM `categories` WHERE category_id = '$id'";
-$result = mysqli_query($conn,$sql);
+$result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
     $id = $row['category_id'];
     $catname = $row['category_name'];
@@ -37,8 +37,6 @@ if (isset($_SESSION['email'])) {
 }
 ?>
 
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -52,7 +50,7 @@ if (isset($_SESSION['email'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/home_page.css">
+    <link rel="stylesheet" href="style/threads.css">
     <link rel="icon" type="image/x-icon" href="assets/images/StreetSyncLogo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
@@ -118,13 +116,12 @@ if (isset($_SESSION['email'])) {
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             echo '<form action="'.$_SERVER["REQUEST_URI"].'" method="post">
             <div class="form-group">
-                <label for="">Problem Subject</label>
+                <label for="">Title</label>
                 <input type="text" class="form-control" name="title" id="" aria-describedby="helpId" placeholder="">
-                <small>Write a short and crisp subject</small>
                 </div>
                 <input type="hidden" name="user_id" value="'.$_SESSION["user_id"].'">
                 <div class="form-group">
-                <label for="">Your Concern</label>
+                <label for="">Subject</label>
                 <textarea name="desc" rows="3" class="form-control"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Post</button>
@@ -153,20 +150,22 @@ if (isset($_SESSION['email'])) {
             $thdesc = $row['thread_desc'];
             $thuserid = $row['thread_user_id'];
 
-            $sql2 = "SELECT firstName FROM `users` WHERE user_id = '$thuserid'";
+            $sql2 = "SELECT firstName, lastName, user_profile_image FROM `users` WHERE user_id = '$thuserid'";
             $result2 = mysqli_query($conn, $sql2);
             $row2 = mysqli_fetch_assoc($result2);
             $name = $row2['firstName'];
+            $surname = $row2['lastName'];
+            $profileImage = empty($row2['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$row2['user_profile_image'];
 
             echo '<div class="media my-3">
                 <a class="d-flex" href="#">
-                    <img src="profile/defaultPic.png" height="55px" alt="">
+                    <img src="'.$profileImage.'" class="user-pic" height="55px" alt="">
                 </a>
-                <div class="media-body ml-2 ">
+                <div class="media-body ml-2">
                     <h5 class="my-0"><a class="text-dark" href="threads.php?threadid='. $thid.'">'.$thtitle.'</a></h5>
                     '.$thdesc.'
                 </div>
-                Asked By: <p class="font-weight-bold"> '.$name.'</p>
+                Asked By: <p class="font-weight-bold">'.$name.' '.$surname.'</p>
             </div>';
         }
         if ($noresult) {
