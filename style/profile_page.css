@@ -232,6 +232,26 @@ button:active {
     width: 380px;
 }
 
+/* Style for the file input */
+.modal .changeImage input[type="file"] {
+  display: none; /* Hide the default file input */
+}
+
+.modal .changeImage label {
+  background-image: linear-gradient(to right, #339938, #5fbd53);
+  border-radius: 20px;
+  border: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 25px;
+  display: inline-block;
+  margin-top: 10px; /* Adjust as needed */
+}
+
+.modal .changeImage label:hover {
+  opacity: 0.8;
+}
 
 
 
