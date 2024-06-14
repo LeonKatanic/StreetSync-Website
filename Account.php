@@ -102,8 +102,8 @@ if (isset($_SESSION['email'])) {
             <div class="changeImage">
               <form method="POST" action="change_image.php" enctype="multipart/form-data">
                 <input type="file" name="profile_image" id="profileImage" accept="image/*" required>
-                <label for="profileImage">Change image</label>
-                <button type="submit" id="changeImage">Submit</button>
+                <label for="profileImage">Choose image</label>
+                <button type="submit" id="changeImage">Change image</button>
               </form>
             </div>
             <!--

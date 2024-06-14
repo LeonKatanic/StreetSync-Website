@@ -9,6 +9,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $id = $row['category_id'];
     $catname = $row['category_name'];
     $catdesc = $row['category_description'];
+    // Limit description to 100 characters and add "..." if longer
+    $catdesc = strlen($catdesc) > 100 ? substr($catdesc, 0, 100) . "..." : $catdesc;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -104,10 +106,6 @@ if (isset($_SESSION['email'])) {
             <h1 class="display-3"><?php echo $catname; ?></h1>
             <p class="lead"><?php echo $catdesc; ?></p>
             <hr class="my-2">
-            <p>If you want to know more about this thread, click on this button</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="index.php" role="button">More Info</a>
-            </p>
         </div>
     </div>
     <div class="container my-3">
@@ -157,15 +155,18 @@ if (isset($_SESSION['email'])) {
             $surname = $row2['lastName'];
             $profileImage = empty($row2['user_profile_image']) ? 'assets/profile/defaultPic.png' : 'assets/profile/'.$row2['user_profile_image'];
 
+            // Truncate thread description and add "..." if longer than 100 characters
+            $displayDesc = strlen($thdesc) > 100 ? substr($thdesc, 0, 100) . "..." : $thdesc;
+
             echo '<div class="media my-3">
                 <a class="d-flex" href="#">
                     <img src="'.$profileImage.'" class="user-pic" height="55px" alt="">
                 </a>
                 <div class="media-body ml-2">
                     <h5 class="my-0"><a class="text-dark" href="threads.php?threadid='. $thid.'">'.$thtitle.'</a></h5>
-                    '.$thdesc.'
+                    '.$displayDesc.'
                 </div>
-                Asked By: <p class="font-weight-bold">'.$name.' '.$surname.'</p>
+                Posted By: <p class="font-weight-bold">'.$name.' '.$surname.'</p>
             </div>';
         }
         if ($noresult) {
