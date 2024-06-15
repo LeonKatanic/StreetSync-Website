@@ -20,45 +20,59 @@ body, html {
     left: 0;
     right: 0;
     z-index: 1000;
-}
-
-.navbar li {
+    }
+    
+    .navbar li {
     display: inline-block;
-}
-
-.navbar li img {
+    padding: 0 15px; /* Adds space between links */
+    }
+    
+    .navbar .navlinks a {
+    color: white; /* Makes the letters white */
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 45px; /* Centers the text vertically */
+    transition: color 0.3s; /* Smooth transition for color change */
+    }
+    
+    .navbar a:hover {
+    color: gray; /* Changes color to gray on hover */
+    }
+    
+    .navbar li img {
     height: 45px;
     padding: 7px 16px;
-}
-
-/* Hero Section */
-.hero {
+    vertical-align: middle; /* Centers the logo vertically */
+    }
+    
+    /* Hero Section */
+    .hero {
     position: absolute;
     right: 0;
     top: 0;
     margin-right: 10px;
-}
-
-/* User Pic */
-.user-pic {
+    }
+    
+    /* User Pic */
+    .user-pic {
     width: 40px; /* Adjust as needed */
     height: 40px; /* Adjust as needed */
     border-radius: 50%;
     cursor: pointer;
     margin-left: 30px;
-  }
-  
-  .user-info img {
+    }
+    
+    .user-info img {
     width: 60px; /* Ensure consistent size */
     height: 60px; /* Ensure consistent size */
     border-radius: 50%;
     margin-right: 15px;
     object-fit: cover; /* Ensure the image covers its container */
     box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.18);
-  }
-
-/* Profile Menu */
-.sub-menu-wrap {
+    }
+    
+    /* Profile Menu */
+    .sub-menu-wrap {
     position: absolute;
     top: 100%;
     right: 0;
@@ -66,61 +80,61 @@ body, html {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s;
-}
-
-.sub-menu-wrap.open-menu {
+    }
+    
+    .sub-menu-wrap.open-menu {
     max-height: 400px;
-}
-
-.sub-menu {
+    }
+    
+    .sub-menu {
     background: #ffffff48;
     padding: 20px;
     margin: 10px;
-}
-
-.user-info {
+    }
+    
+    .user-info {
     display: flex;
     align-items: center;
-}
-
-.user-info h3 {
+    }
+    
+    .user-info h3 {
     font-weight: 500;
-}
-
-.user-info img {
+    }
+    
+    .user-info img {
     width: 60px;
     border-radius: 50%;
     margin-right: 15px;
-}
-
-.sub-menu-link {
+    }
+    
+    .sub-menu-link {
     display: flex;
     align-items: center;
     text-decoration: none;
     color: #525252;
     margin: 12px 0;
-}
-
-.sub-menu-link p {
+    }
+    
+    .sub-menu-link p {
     width: 100%;
-}
-
-.sub-menu-link i {
+    }
+    
+    .sub-menu-link i {
     margin-right: 15px;
-}
-
-.sub-menu-link span {
+    }
+    
+    .sub-menu-link span {
     font-size: 20px;
     transition: transform 0.5s;
-}
-
-.sub-menu-link:hover span {
+    }
+    
+    .sub-menu-link:hover span {
     transform: translateX(5px);
-}
-
-.sub-menu-link:hover p {
+    }
+    
+    .sub-menu-link:hover p {
     font-weight: 600;
-}
+    }
 
 /* Button Styles */
 .btn-primary {
@@ -155,3 +169,25 @@ body, html {
     border-radius: 50%;
     margin-right: 10px;
 }
+
+@media (min-width: 868px) {
+    .header__wrapper .cols__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 90%;
+      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+    }
+    .header__wrapper .cols__container .left__col {
+      padding: 25px 0px;
+    }
+  }
+  
+  @media (min-width: 1017px) {
+    .header__wrapper .cols__container .left__col {
+      margin: 0;
+      margin-right: auto;
+    }
+  }

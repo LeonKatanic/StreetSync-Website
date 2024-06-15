@@ -32,39 +32,47 @@ if (isset($_SESSION['email'])) {
   <!-- NAVBAR -->
   <div class="navbar">
     <ul>
-      <li style="float:left">
-        <a href="HomePage.php">
-          <img src="assets/images/StreetSyncName.png" alt="StreetSyncName">
-        </a>
-      </li>
-      <div class="hero">
-        <nav>
-          <img src="<?php echo $profilePicSrc; ?>" class="user-pic" onclick="toggleMenu()">
-          <div class="sub-menu-wrap" id="subMenu">
-            <div class="sub-menu">
-              <div class="user-info">
-                <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
-                <?php if (!empty($userInfo)) : ?>
-                  <p><?php echo $userInfo['firstName'] . ' ' . $userInfo['lastName']; ?></p>
-                <?php endif; ?>
-              </div>
-              <hr>
-              <a href="HomePage.php" class="sub-menu-link">
-                <i class="bi bi-house"></i>
-                <p>Home page</p>
-                <span>&gt;</span>
-              </a>
-              <a href="logout.php" class="sub-menu-link">
-                <i class="bi bi-box-arrow-left"></i>
-                <p>Log out</p>
-                <span>&gt;</span>
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
+        <div class="navlinks">
+            <li style="float:left">
+                <a href="HomePage.php">
+                    <img src="assets/images/StreetSyncName.png" alt="StreetSyncName">
+                </a>
+            </li>
+            <li>
+                <a href="AboutUs.php">About Us</a>
+            </li>
+            <li>
+                <a href="PrivacyPolicy.php">Privacy Policy</a>
+            </li>
+        </div>
+        <div class="hero">
+            <nav>
+                <img src="<?php echo $profilePicSrc; ?>" class="user-pic" onclick="toggleMenu()">
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img src="<?php echo $profilePicSrc; ?>" alt="Profile Picture">
+                            <?php if (!empty($userInfo)) : ?>
+                                <p><?php echo $userInfo['firstName'] . ' ' . $userInfo['lastName']; ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <hr>
+                        <a href="HomePage.php" class="sub-menu-link">
+                            <i class="bi bi-house"></i>
+                            <p>HomePage</p>
+                            <span>&gt;</span>
+                        </a>
+                        <a href="logout.php" class="sub-menu-link">
+                            <i class="bi bi-box-arrow-left"></i>
+                            <p>Log out</p>
+                            <span>&gt;</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </ul>
-  </div>
+</div>
   <script>
     const subMenu = document.getElementById("subMenu");
 
