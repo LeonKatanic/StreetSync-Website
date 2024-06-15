@@ -86,7 +86,7 @@ if (isset($_SESSION['email'])) {
                 $id = $row['category_id'];
                 $catname = $row['category_name'];
                 $catdesc = $row['category_description'];
-
+                // Display category cards dynamically
                 echo '<div class="col-md-4 my-3">
                 <div class="card text-left">
                   <img class="card-img-top" src="assets/images/card-'.$id.'.jpg" alt="">
